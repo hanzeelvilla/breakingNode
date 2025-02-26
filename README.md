@@ -1,4 +1,4 @@
 # Breaking Node 😎
-![Logo](breaking_node.jpg)
+![Logo](breaking_node_logo.jpg)
 
 Códigos vistos en la sesión
