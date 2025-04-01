@@ -11,26 +11,30 @@ async function buscarPokemon(pokemon) {
 	}
 };
 
-const argumentos = process.argv;
-if (argumentos.length < 3){
-	console.log("Debes ingresar el nombre de un pokemon 👻");
-	process.exit(1);
+async function main() {
+    const argumentos = process.argv;
+    if (argumentos.length < 3){
+        console.log("Debes ingresar el nombre de un pokemon 👻");
+        process.exit(1);
+    }
+    else if (argumentos.length > 3) {
+        console.log("Nombras un pokemon pa 🤡");
+        process.exit(1);
+    }
+    else {
+        const pokemon = process.argv[2];
+        const pokemonData = await buscarPokemon(pokemon);
+        if (pokemonData) {
+            const pokemonTable = {
+                nombre: pokemonData.name,
+                altura: pokemonData.height,
+                peso: pokemonData.weight,
+                habilidades: pokemonData.abilities.map(ability => ability.ability.name).join(", "),
+                tipos: pokemonData.types.map(type => type.type.name).join(", ")
+            }
+            console.table(pokemonTable);
+        }
+    }
 }
-else if (argumentos.length > 3) {
-	console.log("Nombras un pokemon pa 🤡");
-	process.exit(1);
-}
-else {
-	const pokemon = process.argv[2];
-	const pokemonData = await buscarPokemon(pokemon);
-	if (pokemonData) {
-		const pokemonTable = {
-			nombre: pokemonData.name,
-			altura: pokemonData.height,
-			peso: pokemonData.weight,
-			habilidades: pokemonData.abilities.map(ability => ability.ability.name).join(", "),
-			tipos: pokemonData.types.map(type => type.type.name).join(", ")
-		}
-		console.table(pokemonTable);
-	}
-}
+
+main()
